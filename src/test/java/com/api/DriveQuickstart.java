@@ -1,3 +1,5 @@
+package com.api;
+
 import com.google.api.client.auth.oauth2.Credential;
 import com.google.api.client.extensions.java6.auth.oauth2.AuthorizationCodeInstalledApp;
 import com.google.api.client.extensions.jetty.auth.oauth2.LocalServerReceiver;
@@ -47,6 +49,8 @@ public class DriveQuickstart {
             Collections.singletonList(DriveScopes.DRIVE_METADATA_READONLY);
     private static final String CREDENTIALS_FILE_PATH = "/credentials.json";
 
+    private static Drive service;
+
     /**
      * Creates an authorized Credential object.
      *
@@ -78,14 +82,17 @@ public class DriveQuickstart {
         return credential;
     }
 
-    public static void main(String... args) throws IOException, GeneralSecurityException {
-        logger.info("Starting the DriveQuickstart application.");
+    public static void buildGoogleDriveApiService() throws IOException, GeneralSecurityException {
+        logger.info("Starting the com.api.DriveQuickstart application.");
         // Build a new authorized API client service.
         final NetHttpTransport HTTP_TRANSPORT = GoogleNetHttpTransport.newTrustedTransport();
-        Drive service = new Drive.Builder(HTTP_TRANSPORT, JSON_FACTORY, getCredentials(HTTP_TRANSPORT))
+        service = new Drive.Builder(HTTP_TRANSPORT, JSON_FACTORY, getCredentials(HTTP_TRANSPORT))
                 .setApplicationName(APPLICATION_NAME)
                 .build();
 
+    }
+
+    public static void getFileListFromGoogleDrive() throws IOException {
         logger.info("Using access token to access the user's Google Drive.");
         // Print the names and IDs for up to 10 files.
         FileList result = service.files().list()
