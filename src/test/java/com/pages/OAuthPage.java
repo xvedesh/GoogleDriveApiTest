@@ -12,6 +12,9 @@ public class OAuthPage {
     @FindBy(xpath = "//div[@class='BHzsHc'][contains(text(), 'Use another account')]")
     public WebElement useAnotherAccount;
 
+    @FindBy(xpath = "//span[@jsname='V67aGc'][contains(text(), 'Dismiss')]")
+    public WebElement dismissButton;
+
     @FindBy(xpath = "//input[@type='email']")
     public WebElement inputEmail;
 
